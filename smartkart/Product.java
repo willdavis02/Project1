@@ -34,6 +34,9 @@ public abstract class Product {
 		quantity+=amount;
 		
 	}
+	public String toString() {
+		return "Product ID: " + productID +"\tItem name: " + name+ "\tPrice: $"+price+"\tQuantity: "+getQuantity();
+	}
 	public String getProductID() {
 		return productID;
 	}
