@@ -1,3 +1,6 @@
+/**
+ * Created by Will Davis
+ */
 package smartkart;
 
 import java.time.LocalDate;
@@ -21,7 +24,7 @@ public class Grocery extends Product{
 		return tax;
 	}
 	/*
-	 * Will Davis, had no idea how to do this since I don't have any experience with LocalDate, so I looked it up
+	 * 
 	 */
 	public boolean isExpired() {
 		return LocalDate.now().isAfter(expirationDate);
