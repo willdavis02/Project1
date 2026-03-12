@@ -18,36 +18,93 @@ public StoreManager() {
 public void loadInventoryFromFile(String fileName) {
     try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
         String line;
+        int lineNumber = 0;
+
         while ((line = br.readLine()) != null) {
+            lineNumber++;
+
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+
             String[] parts = line.split("\t");
 
-            String type = parts[0];
+            try {
+                String type = parts[0].trim();
 
-            if (type.equalsIgnoreCase("Electronics")) {
-                inventory.add(new Electronics(
-                        parts[1], parts[2],
-                        Double.parseDouble(parts[3]),
-                        Integer.parseInt(parts[4]),
-                        parts[5]
-                ));
-            } else if (type.equalsIgnoreCase("Clothing")) {
-                inventory.add(new Clothing(
-                        parts[1], parts[2],
-                        Double.parseDouble(parts[3]),
-                        Integer.parseInt(parts[4]),
-                        parts[5], parts[6]
-                ));
-            } else if (type.equalsIgnoreCase("Grocery")) {
-                inventory.add(new Grocery(
-                        parts[1], parts[2],
-                        Double.parseDouble(parts[3]),
-                        Integer.parseInt(parts[4]),
-                        LocalDate.parse(parts[5])
-                ));
+                if (type.equalsIgnoreCase("Electronics")) {
+                    if (parts.length < 6) {
+                        System.out.println("Skipping invalid Electronics row at line " + lineNumber);
+                        continue;
+                    }
+
+                    String id = parts[1].trim();
+                    String name = parts[2].trim();
+                    double price = Double.parseDouble(parts[3].trim());
+                    int quantity = Integer.parseInt(parts[4].trim());
+                    String brand = parts[5].trim();
+
+                    if (price < 0 || quantity < 0) {
+                        System.out.println("Skipping negative price/quantity at line " + lineNumber);
+                        continue;
+                    }
+
+                    inventory.add(new Electronics(id, name, price, quantity, brand));
+
+                } else if (type.equalsIgnoreCase("Clothing")) {
+                    if (parts.length < 7) {
+                        System.out.println("Skipping invalid Clothing row at line " + lineNumber);
+                        continue;
+                    }
+
+                    String id = parts[1].trim();
+                    String name = parts[2].trim();
+                    double price = Double.parseDouble(parts[3].trim());
+                    int quantity = Integer.parseInt(parts[4].trim());
+                    String size = parts[5].trim();
+                    String material = parts[6].trim();
+
+                    if (price < 0 || quantity < 0) {
+                        System.out.println("Skipping negative price/quantity at line " + lineNumber);
+                        continue;
+                    }
+
+                    inventory.add(new Clothing(id, name, price, quantity, size, material));
+
+                } else if (type.equalsIgnoreCase("Grocery")) {
+                    if (parts.length < 6) {
+                        System.out.println("Skipping invalid Grocery row at line " + lineNumber);
+                        continue;
+                    }
+
+                    String id = parts[1].trim();
+                    String name = parts[2].trim();
+                    double price = Double.parseDouble(parts[3].trim());
+                    int quantity = Integer.parseInt(parts[4].trim());
+                    LocalDate expirationDate = LocalDate.parse(parts[5].trim());
+
+                    if (price < 0 || quantity < 0) {
+                        System.out.println("Skipping negative price/quantity at line " + lineNumber);
+                        continue;
+                    }
+
+                    inventory.add(new Grocery(id, name, price, quantity, expirationDate));
+
+                } else {
+                    System.out.println("Unknown product type at line " + lineNumber + ": " + type);
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Skipping line " + lineNumber + ". Invalid number format.");
+            } catch (DateTimeParseException e) {
+                System.out.println("Skipping line " + lineNumber + ". Invalid date format.");
+            } catch (Exception e) {
+                System.out.println("Skipping line " + lineNumber + ". Invalid data.");
             }
         }
+
     } catch (IOException e) {
-        System.out.println("Error loading inventory file.");
+        System.out.println("Error loading inventory file: " + e.getMessage());
     }
 }
 
