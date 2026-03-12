@@ -34,7 +34,7 @@ public class Clothing extends Product implements Returnable {
 		return super.toString()+ "\tSize: "+size+"\tMaterial: "+material;
 	}
 	/**
-	 * This is an abstract class in Product, implements own implementation here, where the tax is 5%
+	 * This is an abstract method in Product, implements own implementation here, where the tax is 5%
 	 */
 	@Override
 	public double calculateTax(int quantity) {
@@ -80,16 +80,31 @@ public class Clothing extends Product implements Returnable {
 		return ("Customer name: "+customerName+ "\n Address: "+address);
 	}
 	
-	//Getters and setters for the attributes unique to this class
+	/**
+	 * Getter for size
+	 * @return
+	 */
 	public String getSize() {
 		return size;
 	}
+	/**
+	 * Setter for size
+	 * @param size
+	 */
 	public void setSize(String size) {
 		this.size = size;
 	}
+	/**
+	 * Getter for material
+	 * @return
+	 */
 	public String getMaterial() {
 		return material;
 	}
+	/**
+	 * Setter for material
+	 * @param material
+	 */
 	public void setMaterial(String material) {
 		this.material = material;
 	}

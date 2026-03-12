@@ -1,5 +1,14 @@
 package smartkart;
 
+/**
+ * Made by Maksym Nikulin
+ */
+/**
+ * 
+ */
+/**
+ * 
+ */
 public abstract class Product {
 	private String productID;
 	private String name;
@@ -8,6 +17,12 @@ public abstract class Product {
 	
 	
 	
+	/**
+	 * @param productID - Id number of the product
+	 * @param name - name of the product
+	 * @param price - price of the product
+	 * @param quantity - quantity of the product available
+	 */
 	public Product (String productID, String name, double price, int quantity) {
 		this.productID=productID;
 		this.name=name;
@@ -16,9 +31,18 @@ public abstract class Product {
 		
 	}
 	
+	/**
+	 * @param This method defines CalculateTax method
+	 * @return
+	 */
 	public abstract double calculateTax(int quantity);
 	
 	
+	/**
+	 * THis class allows customer to make a purchase
+	 * @param amount - how many of the certain item customer wants to purchase
+	 * @return Can purchase or not. Subtract the purchased amount from the total
+	 */
 	public boolean purchase(int amount) {
 		if (amount>quantity) {
 			System.out.println("There are only "+quantity+ " of this item available.");
@@ -30,13 +54,28 @@ public abstract class Product {
 		}
 	}
 	
+	/**
+	 * THis method adds restock items to the total amount
+	 * @param amount - amount to restock
+	 * 
+	 */
 	public void restock(int amount) {
 		quantity+=amount;
 		
 	}
+	
+	
+	/**
+	 *This method make a string describing the item
+	 */
 	public String toString() {
 		return "Product ID: " + productID +"\tItem name: " + name+ "\tPrice: $"+price+"\tQuantity: "+getQuantity();
 	}
+	
+	
+	/**
+	 * Getters and setters
+	 */
 	public String getProductID() {
 		return productID;
 	}

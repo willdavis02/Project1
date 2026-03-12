@@ -86,8 +86,13 @@ public class Main {
 						break;
 				}
 					//Prompts user to enter the quantity of the item they wish to by, and takes the int input in
+					//Ensures no negative quantities were entered
 					System.out.println("Enter quantity: ");
 					int quant = scn.nextInt();
+					if(quant<=0) {
+						System.out.println("Invalid quantity. Value must be positive");
+						break;
+					}
 					
 					//Checks if the Product found matches an ID and the ID it matches is a product of Grocery, then it checks to see if the the Grocery product is expired(one of the items in the TSV is expired by design for testing purposes)
 					//Calls the isExpired method from the Grocery class, and if it's true it doesn't allow user to purchase the item
@@ -185,19 +190,24 @@ public class Main {
 					System.out.println("Days since purchase: ");
 					int days= scn.nextInt();
 					
-					//Prompts user to enter amount of item being returned
+					//Prompts user to enter amount of item being returned, ensures no negative quantity was entered
 					System.out.println("Enter quantity: ");
 					int returnQuantity = scn.nextInt();
 					scn.nextLine();
+					if(returnQuantity<=0) {
+						System.out.println("Invalid quantity. Value must be positive");
+						break;
+					}
 					
 					//Prompts user to enter condition
 					System.out.print("Enter condition: ");
 					String condition = scn.nextLine();
 					
-					//Checks if item is eligible for return based on what kind of item it is, calls correct isEligibleForReturn function.
-					//returnProduct.restock calls for the restock method from Product class of the quantity being returned
+					//Polymorphism- calls the correct isEligibleForReturn() implementation
+					//based on whether the object is Electronics or clothing. returnProduct.restock
+					//calls the restock method from Product class of the quantity
 					//calls processRefund method from correct class
-					//Asks for name and address to print returnlabel
+					//Asks for name and address to print return label
 					if (prod.isEligibleForReturn(days)) {
 						double refund = prod.processRefund(returnQuantity, condition);
 						returnProduct.restock(returnQuantity);
