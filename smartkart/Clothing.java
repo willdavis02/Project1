@@ -11,6 +11,10 @@ public class Clothing extends Product implements Returnable {
 		this.material=material;
 	}
 	@Override
+	public String toString() {
+		return super.toString()+ "\tSize: "+size+"\tMaterial: "+material;
+	}
+	@Override
 	public double calculateTax(int quantity) {
 		double clothingTax= .05;
 		double tax = quantity*price*clothingTax;

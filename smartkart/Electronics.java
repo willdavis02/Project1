@@ -7,6 +7,11 @@ public class Electronics extends Product implements Returnable {
 		super(productID, name, price, quantity);
 		this.setBrand(brand);
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString()+"\tBrand: "+brand;
+	}
 	@Override
 	public boolean isEligibleForReturn(int daysSincePurchase) {
 		if(daysSincePurchase>15) {

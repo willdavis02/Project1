@@ -30,6 +30,7 @@ public class StoreManager{
 		 }
 		 cart.add(new CartItem(p ,quantity));
 	 }
+	 
 	 public ArrayList<Product> getInventory() {
 		 return inventory;
 	}

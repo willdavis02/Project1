@@ -12,6 +12,10 @@ public class Grocery extends Product{
 		
 	}
 	@Override
+	public String toString() {
+		return super.toString()+"\tExpiration Date: "+expirationDate;
+	}
+	@Override
 	public double calculateTax(int quantity) {
 		double tax = 0.0;
 		return tax;
