@@ -6,11 +6,18 @@ import java.time.LocalDate;
 
 public class Main {
 
+	/**
+	 * Authors Will Davis and Maksym Nikulin
+	 * This method creates the file reader to read from the tsv file, as well as prints the store directory to the console and allows users to interact with the store
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		//creating general scanner to take user input from keyboard
+		//creates new object of storeManager
 		Scanner scn = new Scanner(System.in);
 		StoreManager store = new StoreManager();
 		
+		//Reads from tsv file, creates new objects of electronics, clothing, and grocery based on the first letter of the productID(E,C,G), Converts values from tsv into double and Integer values when necessary
 		try {
 			String filePath ="/Users/williamdavis/Desktop/Project1 Store Inventory.tsv";
 			FileInputStream fis = new FileInputStream(filePath);
@@ -38,7 +45,7 @@ public class Main {
 		}catch(FileNotFoundException e) {
 			System.out.println("Inventory file not found.");
 		}
-		
+		//Prints directory to console for user, prompts for user input of int value
 		while(true) {
 			System.out.println("\n***SmartKart Home***");
 			System.out.println("1. View Inventory");
@@ -48,8 +55,9 @@ public class Main {
 			System.out.println("5. Exit");
 			int input= scn.nextInt();
 			
-			
+			//Switch that implements the different features based on user input 1-5
 			switch(input) {
+				//Prints the inventory
 				case 1:
 					System.out.println("====STORE INVENTORY====");
 					System.out.println("\n**********************");
@@ -57,11 +65,14 @@ public class Main {
 					System.out.println(p);
 				}
 					break;
+				//Add to cart, collects user input productID, makes String id from user input	
 				case 2:
 					System.out.println("You've Selected: Add to Cart");
 					System.out.println("Enter product ID of the Item you wish to purchase: ");
 					String id = scn.next();
 				
+					
+					//Creates a null Product called found, iterates through getInventory ArrayList method from StoreManager class. If the productID matches the productID entered by the user, assigns Product found to the value in the ArrayList.
 					Product found =null;
 					for(Product p: store.getInventory()) {
 						if(p.getProductID().equalsIgnoreCase(id)) {
@@ -69,14 +80,16 @@ public class Main {
 							break;
 						}
 					}
+					//If the item isn't found, prints error message.
 					if(found == null) {
 						System.out.println("Invalid ProductID: Product not found");
 						break;
 				}
-				
+					//Prompts user to enter the quantity of the item they wish to by, and takes the int input in
 					System.out.println("Enter quantity: ");
 					int quant = scn.nextInt();
-				
+					
+					//if found 
 					if(found instanceof Grocery) {
 						Grocery grocery= (Grocery) found;
 						if(grocery.isExpired()) {
